@@ -22,6 +22,7 @@
         <scala.fmt.version>2.0.1</scala.fmt.version>
         <jacoco.version>0.8.2</jacoco.version>
         <scalatest.maven.plugin>1.0</scalatest.maven.plugin>
+        <scalastyle.maven.plugin>1.0.0</scalastyle.maven.plugin>
     </properties>
 
     <repositories>
@@ -92,6 +93,30 @@
                     </compilerPlugins>
                     <scalaVersion>${scala.version}</scalaVersion>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.scalastyle</groupId>
+                <artifactId>scalastyle-maven-plugin</artifactId>
+                <version>${scalastyle.maven.plugin}</version>
+                <configuration>
+                    <verbose>false</verbose>
+                    <failOnViolation>true</failOnViolation>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <failOnWarning>false</failOnWarning>
+                    <sourceDirectory>${project.basedir}/src/main/scala</sourceDirectory>
+                    <testSourceDirectory>${project.basedir}/src/test/scala</testSourceDirectory>
+                    <configLocation>${project.basedir}/conf/scalastyle_config.xml</configLocation>
+                    <outputFile>${project.basedir}/scalastyle-output.xml</outputFile>
+                    <outputEncoding>UTF-8</outputEncoding>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- disable surefire -->
@@ -168,5 +193,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
